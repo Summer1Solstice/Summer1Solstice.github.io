@@ -1,0 +1,41 @@
+name: Run ahkScript
+
+on:
+  workflow_dispatch:
+    inputs:
+      log_level:
+        description: 'Log level (optional)'
+        required: false
+        default: 'info'
+        type: choice
+        options:
+          - info
+          - debug
+          - warning
+
+jobs:
+  run-ahk-job:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run command in repo root (PowerShell)
+        shell: pwsh
+        run: |
+          $Path = (Get-Location).Path
+          $ahk = $Path + "\.github\AutoHotkey64.exe"
+          $ahkScript = $Path + "\.github\test.ahk"
+          
+          if (Test-Path $ahk -PathType Leaf) {
+              if (Test-Path $ahkScript -PathType Leaf) {
+                  & $ahk /ErrorStdOut=utf-8 $ahkScript 2>&1 | ForEach-Object { Write-Output $_ }
+              } else {
+                  Write-Error "未找到 AHK 脚本文件: $ahkScript"
+                  exit 1
+              }
+          } else {
+              Write-Error "未找到 AutoHotkey 可执行文件: $ahk"
+              exit 1
+          }
