@@ -1,4 +1,4 @@
-# 目录
+﻿# 目录
 [AutoHotkey笔记](./AutoHotkey笔记.md)  
 [AutoHotkey脚本的可移植性](./AutoHotkey脚本的可移植性.md)  
 [利用延续片段增强regex的可读性](./利用延续片段增强regex的可读性.md)  
@@ -7,3 +7,4 @@
 [如何手写迭代器](./如何手写迭代器.md)  
 [扩展AutoHotkey原生对象](./扩展AutoHotkey原生对象.md)  
 [相关链接](./相关链接.md)  
+[隐藏参数this](./隐藏参数this.md)  
